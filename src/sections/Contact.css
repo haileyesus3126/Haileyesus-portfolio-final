@@ -1,0 +1,162 @@
+/* ===== SECTION ===== */
+.contact {
+  scroll-margin-top: 80px;
+  padding: 80px 20px;
+  background: var(--bg);
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+}
+
+/* soft aurora backdrop */
+.contact::before {
+  content: "";
+  position: absolute; inset: -15%;
+  background:
+    radial-gradient(40% 40% at 20% 20%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 60%),
+    radial-gradient(40% 40% at 80% 80%, color-mix(in oklab, var(--accent-2) 18%, transparent), transparent 60%);
+  filter: blur(90px);
+  z-index: 0;
+  opacity: .85;
+}
+
+.contact-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-title {
+  margin: 0 0 8px;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+.contact-lead {
+  margin: 0 0 24px;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+/* ===== LAYOUT ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 18px;
+}
+@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* ===== CARD SHELL (form + side share the same look) ===== */
+.contact-form,
+.contact-card {
+  position: relative;
+  background: color-mix(in oklab, var(--surface) 75%, transparent);
+  border: 1px solid var(--card-line);
+  border-radius: 16px;
+  padding: 18px 18px 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+}
+
+/* animated gradient border (no extra markup) */
+.contact-form::before,
+.contact-card::before {
+  content: "";
+  position: absolute; inset: -1px;
+  border-radius: 18px;
+  background: conic-gradient(from 0deg, var(--accent), var(--accent-2), var(--accent));
+  -webkit-mask: linear-gradient(#000 0%, #000 100%) content-box, linear-gradient(#000 0%, #000 100%);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  padding: 1px;
+  opacity: 0;
+  filter: blur(.5px);
+  transition: opacity .3s ease, filter .3s ease;
+  pointer-events: none;
+}
+.contact-form:hover::before,
+.contact-card:hover::before { opacity: .7; }
+
+/* ===== FORM ===== */
+.contact-form label {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.contact-form label.full { grid-column: 1 / -1; }
+
+.contact-form label > span {
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.contact-form input,
+.contact-form textarea {
+  appearance: none;
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--card-line);
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.contact-form textarea { resize: vertical; min-height: 140px; }
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: color-mix(in oklab, var(--muted) 85%, transparent); }
+
+/* focus & valid/invalid */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: color-mix(in oklab, var(--accent) 60%, var(--card-line));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 28%, transparent);
+}
+.contact-form input:invalid:focus,
+.contact-form textarea:invalid:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px color-mix(in oklab, #ef4444 28%, transparent);
+}
+
+/* submit button full width on mobile */
+.contact-form .btn {
+  margin-top: 6px;
+  min-width: 140px;
+}
+@media (max-width: 480px) { .contact-form .btn { width: 100%; } }
+
+/* ===== SIDE CARD ===== */
+.contact-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  color: var(--accent);
+}
+
+.socials {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: grid; gap: 10px;
+}
+.socials a {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform .15s ease, border-color .15s ease, background .15s ease, box-shadow .2s ease;
+}
+.socials a:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--accent) 35%, var(--card-line));
+  box-shadow: var(--shadow-2);
+}
+.socials i { width: 18px; text-align: center; }
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .contact-form::before, .contact-card::before { transition: none !important; }
+  .socials a, .contact-form input, .contact-form textarea { transition: none !important; }
+}

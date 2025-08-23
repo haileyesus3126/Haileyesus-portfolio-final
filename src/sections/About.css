@@ -1,0 +1,171 @@
+/* Section wrapper */
+.about {
+  position: relative;
+  scroll-margin-top: 80px;
+  padding: 90px 20px;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* Soft animated aurora background */
+.about-aurora {
+  position: absolute; inset: -20%;
+  background:
+    radial-gradient(40% 40% at 20% 20%, color-mix(in oklab, var(--accent) 26%, transparent), transparent 60%),
+    radial-gradient(40% 40% at 80% 80%, color-mix(in oklab, var(--accent-2) 20%, transparent), transparent 60%);
+  filter: blur(90px) saturate(1.05);
+  animation: about-aurora-move 22s ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes about-aurora-move {
+  0% { transform: scale(1) translate(0,0); opacity:.8; }
+  100% { transform: scale(1.12) translate(2%, -2%); opacity:.95; }
+}
+
+/* Grid layout */
+.about-inner {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  display: grid; gap: 36px; align-items: center;
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+/* Visual column */
+.about-visual {
+  position: relative;
+  justify-self: center;
+}
+
+/* Rotating gradient ring around the photo (no libs) */
+.about-ring {
+  position: relative;
+  width: clamp(24px, 30vw, 360px);
+  aspect-ratio: 1/1;
+  display: grid; place-items: center;
+  border-radius: 32px;
+  padding: 10px;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  box-shadow: var(--shadow-2);
+  overflow: hidden;
+}
+.about-ring::before {
+  content: "";
+  position: absolute; inset: -40%;
+  background: conic-gradient(from 0deg, var(--accent), var(--accent-2), var(--accent));
+  animation: about-spin 12s linear infinite;
+  filter: blur(10px) opacity(.7);
+}
+@keyframes about-spin { to { transform: rotate(360deg); } }
+
+/* Portrait sits on top with a clean frame */
+.about-portrait {
+  position: relative; z-index: 1;
+  width: 100%; height: 100%;
+  object-fit: cover; border-radius: 22px;
+  background: var(--card);
+  border: 2px solid var(--card-line);
+  box-shadow: var(--shadow-2);
+  transform: translateZ(0) scale(1);
+  transition: transform .35s ease;
+}
+.about-ring:hover .about-portrait { transform: translateZ(0) scale(1.03); }
+
+/* Floating skill chips */
+.about-chip {
+  position: absolute;
+  padding: 6px 10px;
+  font-size: .85rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-1);
+  animation: about-float 6s ease-in-out infinite alternate;
+}
+.chip-1 { top: -10px; left: -6px; }
+.chip-2 { bottom: 4px; left: 8px; animation-delay: .2s; }
+.chip-3 { top: 8px; right: -10px; animation-delay: .4s; }
+.chip-4 { bottom: -8px; right: 4px; animation-delay: .6s; }
+@keyframes about-float {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-10px); }
+}
+
+/* Text column */
+.about-text { position: relative; }
+
+/* Title & lead */
+.about-title {
+  margin: 0 0 10px;
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+}
+.about-lead {
+  margin: 0 0 16px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 60ch;
+}
+
+/* Quick stats */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  list-style: none; padding: 0; margin: 14px 0 10px;
+}
+.about-stats li {
+  background: color-mix(in oklab, var(--surface) 86%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 12px;
+  text-align: center;
+  box-shadow: var(--shadow-1);
+}
+.about-stats .num {
+  display: block; font-weight: 800;
+  font-size: 1.15rem; color: var(--text);
+}
+.about-stats .label {
+  display: block; font-size: .85rem; color: var(--muted-2);
+}
+
+/* Detail list */
+.about-list {
+  margin: 10px 0 18px;
+  padding: 0;
+  list-style: none;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.about-list li {
+  padding: 10px 12px;
+  display: flex; gap: 8px;
+  border-bottom: 1px dashed var(--line);
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+}
+.about-list li:last-child { border-bottom: none; }
+.about-list span {
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 84px;
+}
+
+/* Actions */
+.about-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-inner { grid-template-columns: 1fr; text-align: center; }
+  .about-stats { grid-template-columns: repeat(3, 1fr); }
+  .about-list li { justify-content: center; }
+  .about-actions { justify-content: center; }
+  .about-chip { display: none; } /* optional on small screens */
+}
