@@ -2,7 +2,7 @@ import "./About.css";
 import { motion, useReducedMotion } from "framer-motion";
 
 const STATS = [
-  { num: "2+", label: "Years Coding" },
+  { num: "3+", label: "Years Coding" },      // was 2+, aligned to your CV
   { num: "7+", label: "Projects" },
   { num: "10+", label: "Tech Stack" },
 ];
@@ -40,15 +40,15 @@ export default function About() {
           <figure className="about-ring">
             <img
               src="/myphoto.jpg"
-              alt="Haileyesus Mesfin — MERN & Frontend Developer"
+              alt="Haileyesus Mesfin — Junior Full-Stack Developer (MERN & Java/Spring Boot) and Data Assistant"
               className="about-portrait"
               width="560"
               height="560"
               decoding="async"
               loading="eager"
-              fetchpriority="high"
+              fetchPriority="high"
             />
-            <figcaption className="sr-only">Portrait photo</figcaption>
+            <figcaption className="sr-only">Portrait of Haileyesus Mesfin</figcaption>
           </figure>
         </motion.div>
 
@@ -61,13 +61,13 @@ export default function About() {
           viewport={{ once: true, amount: 0.3 }}
         >
           <h2 className="about-title" id="about-title">About Me</h2>
+
           <p className="about-lead">
-            I’m <strong>Haileyesus</strong>, a <strong>MERN stack</strong> and{" "}
-            <strong>Java Developer</strong> who loves building modern, accessible, and
-            user-friendly web apps. I work with{" "}
-            <strong>MongoDB, Express.js, React.js, Node.js</strong> and also{" "}
-            <strong>Java</strong>/<strong>Spring Boot</strong>, plus core{" "}
-            <strong>HTML, CSS, JavaScript</strong>.
+            I’m <strong>Haileyesus</strong>, a <strong>Full-Stack Developer</strong> (MERN &amp; Java/Spring Boot)
+            and <strong>Data Assistant</strong> who loves building modern, accessible, and user-friendly web apps.
+            I work with <strong>MongoDB, Express.js, React.js, Node.js</strong>, and also
+            <strong> Java</strong>/<strong>Spring Boot</strong>, plus core <strong>HTML, CSS, JavaScript</strong>.
+            I care about clean code, performance, and real business impact.
           </p>
 
           {/* Quick stats */}
@@ -77,6 +77,7 @@ export default function About() {
             whileInView="visible"
             variants={prefersReducedMotion ? undefined : listParent}
             viewport={{ once: true }}
+            aria-label="Personal statistics"
           >
             {STATS.map((stat) => (
               <motion.li
@@ -84,7 +85,7 @@ export default function About() {
                 variants={prefersReducedMotion ? undefined : listItem}
                 transition={{ duration: 0.6 }}
               >
-                <span className="num" aria-label={`${stat.num} ${stat.label}`}>{stat.num}</span>
+                <span className="num" aria-hidden="true">{stat.num}</span>
                 <span className="label">{stat.label}</span>
               </motion.li>
             ))}
@@ -93,8 +94,10 @@ export default function About() {
           {/* Details list */}
           <ul className="about-list">
             <li><span>Location:</span> Addis Ababa, Ethiopia</li>
-            <li><span>Focus:</span> MERN Stack, Java Development</li>
+            <li><span>Focus:</span> MERN stack, Java/Spring Boot, REST APIs</li>
+            <li><span>Databases:</span> MongoDB, MySQL</li>
             <li><span>Interests:</span> UI/UX, performance optimization, clean code</li>
+            <li><span>Currently:</span> E-commerce (MERN + Stripe) and Task Manager (Spring Boot + Thymeleaf)</li>
           </ul>
 
           <div className="about-actions">
@@ -104,7 +107,7 @@ export default function About() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Download CV (PDF)"
+              aria-label="Open CV as PDF in a new tab"
               download
             >
               Download CV
